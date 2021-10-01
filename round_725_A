@@ -1,0 +1,109 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+#include <queue>
+#include <deque>
+#include <bitset>
+#include <iterator>
+#include <list>
+#include <stack>
+#include <map>
+#include <set>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <limits>
+#include <time.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+using namespace std;
+#define ll long long
+#define mod 1000000007LL
+#define pb push_back
+#pragma GCC target ("avx2")
+#pragma GCC optimization ("O3")
+#pragma GCC optimization ("unroll-loops")
+#define v(x,a,n) vector<x>a(n)
+#define all(v) v.begin(),v.end()
+#define dbg(x) cout<<#x<<"=="<<x<<"\n"
+#define inf 1LL<<60
+void solve(){
+	int t;
+	cin>>t;
+	while(t--)
+	{
+         int n;
+         cin>>n;
+
+		v(ll,v,n);
+		//int mx=-1;
+		for(int i=0;i<n;i++)
+			cin>>v[i];
+
+
+		int mn=*min_element(all(v));
+		int mx=*max_element(all(v));
+
+		int index,index1;
+
+
+		for(int i=0;i<n;i++)
+		{
+			if(mn==v[i])
+				index=i;
+
+			if(mx==v[i])
+				index1=i;
+		}
+
+		int ans1;
+		int ans2;
+		int ans3;
+
+
+		//cout<<ans1+ans2<<"\n";
+	    if(index1>index)
+	    {
+	    	ans1=min(index1+1,n-index-1+1);
+	    	//dbg(ans1);
+	    	ans3=min(ans1,index+1+(n-index1-1)+1);
+	    //	dbg(ans3);
+	    }
+	    else{
+	    	ans2=min(index+1,n-index1-1+1);
+	    	//dbg(ans2);
+	    	ans3=min(ans2,(n-index-1)+index1+1+1);
+	    }
+	    /*
+	    index=0
+	    index1=4
+
+
+
+	    */
+
+
+	    cout<<ans3<<"\n";
+
+
+
+	    }
+
+
+		// cout<<min(ans1,ans2)<<"\n";
+		
+
+
+		
+	
+}
+int main() {
+	  
+	solve();
+	return 0;
+}
