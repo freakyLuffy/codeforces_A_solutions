@@ -1,0 +1,72 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+#include <queue>
+#include <deque>
+#include <bitset>
+#include <iterator>
+#include <list>
+#include <stack>
+#include <map>
+#include <set>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <limits>
+#include <time.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+using namespace std;
+#define ll long long
+#define mod 1000000007LL
+#define pb push_back
+#pragma GCC target ("avx2")
+#pragma GCC optimization ("O3")
+#pragma GCC optimization ("unroll-loops")
+#define v(x,a,n) vector<x>a(n)
+#define all(v) v.begin(),v.end()
+#define dbg(x) cout<<#x<<"=="<<x<<"\n"
+#define inf 1LL<<60
+void solve(){
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		ll a,b;
+		cin>>a>>b;
+		//
+        
+        if(b==1)
+        {
+        	//cout<<a-1<<" "<<(((a*b)*3)-(a-1))<<" "<<(a*b)*3<<"\n";
+        	cout<<"NO\n";
+        }
+		else if(b==2)
+        {   cout<<"YES\n";
+        	cout<<a<<" "<<(((a*b)*3)-a)<<" "<<(a*b)*3<<"\n";
+
+        }
+        else
+        {
+        	cout<<"YES\n";
+		cout<<a<<" "<<(((a*b)*3)-a)<<" "<<(a*b)*3<<"\n";
+	}
+
+		//5+3
+		//52 13 
+	//15 5 10
+
+
+		
+	}
+}
+int main() {
+	  
+	solve();
+	return 0;
+}
