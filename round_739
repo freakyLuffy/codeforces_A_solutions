@@ -1,0 +1,25 @@
+import java.util.*;
+ 
+public class Main
+{
+	public static void main(String[] args) {
+	Scanner sc = new Scanner(System.in);
+	int t = sc.nextInt();
+	while(t>0){
+	    int k = sc.nextInt();
+	    int count = 0;
+	    for(int i=1;i<=k;i++){
+	        count++;
+	   if(count%3==0 || count%10==3){
+	       int temp = count;
+	       while(temp%3 ==0 || temp%10==3){
+	          temp++;
+	      }
+	      count = temp;
+	   }
+	    }
+	    System.out.println(count);
+	    t--;
+	  }
+	}
+}
