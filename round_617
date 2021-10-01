@@ -1,0 +1,29 @@
+import java.util.*;
+ 
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc =new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t>0){
+		    int s = sc.nextInt();
+		    int temp = s;
+		    int init = 0;
+		    while(temp>=10){
+		        int r = temp%10;
+		        int temp2 =(temp - r);
+		        init = init + temp2;
+		        temp = (temp2/10) + r;
+		    }
+		    if(s>=10){
+		      init = init + temp;
+		    System.out.println(init);  
+		    }else{
+		        System.out.println(s);
+		    }
+		    
+		    t--;
+		}
+		
+	}
+}
