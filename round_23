@@ -1,0 +1,68 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+#include <queue>
+#include <deque>
+#include <bitset>
+#include <iterator>
+#include <list>
+#include <stack>
+#include <map>
+#include <set>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <limits>
+#include <time.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+using namespace std;
+#define ll long long
+#define mod 1000000007LL
+#define pb push_back
+#pragma GCC target ("avx2")
+#pragma GCC optimization ("O3")
+#pragma GCC optimization ("unroll-loops")
+#define v(x,a,n) vector<x>a(n)
+#define all(v) v.begin(),v.end()
+#define dbg(x) cout<<#x<<"=="<<x<<"\n"
+#define inf 1LL<<60
+void solve(){
+	ll a,b,c;
+	cin>>a>>b>>c;
+    int ans=0;
+	if(a+b>c)
+	{
+		//ok=1;
+	}
+	else{
+		ans=c-(a+b)+1;
+
+	}
+    if(a+c>b)
+    {
+      
+    }
+    else{
+    	ans+=b-(a+c)+1;
+    }
+    if(b+c>a)
+    {
+
+    }
+    else{
+    	ans+=a-(b+c)+1;
+    }
+    cout<<ans;
+
+}
+int main() {
+	  
+	solve();
+	return 0;
+}
