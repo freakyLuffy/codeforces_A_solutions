@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main() {
+	ll t;
+	cin>>t;
+	while(t--)
+	{
+		ll n;
+		cin>>n;
+		vector<ll>v(n);
+		for(ll i=0;i<n;i++)
+		{   ll a; 
+			cin>>a;
+			v[i]=a;
+		}
+		int k=1;
+		int i=0;
+		int j=n-1;
+		while(k<=n)
+		{
+			
+			if(k%2==1)
+			{
+				cout<<v[i]<<" ";
+				i++;
+			}
+			else{
+				cout<<v[j]<<" ";
+				j--;
+			}
+			k++;
+		}
+		// for(ll i=0,j=n-1;i<n;i++)
+		// {
+		// 	if((i+1)%2==1)
+		// 	{
+		// 	cout<<v[i]<<" ";
+			
+		// 	}
+		// 	else{
+		// 		cout<<v[j]<<" ";
+		// 		j--;
+		// 	}  //3 1 4 1 5 9 2
+		// }
+		// for(auto i:v)
+		// {
+		// 	cout<<i<<" ";
+		// }
+		cout<<"\n";
+	}
+	return 0;
+}
