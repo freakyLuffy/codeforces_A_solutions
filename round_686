@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		
+		int x;
+		cin>>x;
+	  int flag=0;
+	  int back=0;
+	   for(int i=1;i<=x;i++)
+	   { 
+	   	if(!(x&1))
+	   	{
+	   	cout<<x-flag<<" ";
+	   	flag++;
+	   	}
+	   	else{
+	   		if(i==(x+1)/2)
+	   		{
+	   			cout<<x-i<<" ";
+	   		}
+	   		else if(i==((x+1)/2+1))
+	   		{
+	   			cout<<i-1<<" ";
+	   		}
+	   		else{
+	   			cout<<x-flag<<" ";
+	   		}
+	   		flag++;
+	   	}
+	   }
+	   cout<<"\n";
+		
+		
+	}
+	return 0;
+}
