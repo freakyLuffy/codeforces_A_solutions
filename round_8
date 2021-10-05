@@ -1,0 +1,131 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+#include <queue>
+#include <deque>
+#include <bitset>
+#include <iterator>
+#include <list>
+#include <stack>
+#include <map>
+#include <set>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <limits>
+#include <time.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+using namespace std;
+#define ll long long
+#define mod 1000000007LL
+#define pb push_back
+#pragma GCC target ("avx2")
+#pragma GCC optimization ("O3")
+#pragma GCC optimization ("unroll-loops")
+#define v(x,a,n) vector<x>a(n)
+#define all(v) v.begin(),v.end()
+#define dbg(x) cout<<#x<<"=="<<x<<"\n"
+#define inf 1LL<<60
+void solve(){
+	ll n,m;
+	cin>>n>>m;
+	//dbg(m);
+	vector<int>v1(n+1,0);
+	for(int i=0;i<m;i++)
+	{ 
+		int a,b,c;
+		cin>>a>>b>>c;
+		int arr[3]={a,b,c};
+		int count=0;
+		
+		for(int i=0;i<3;i++)
+		{
+			if(v1[arr[i]]==0)
+				count++;
+		}
+		//dbg(count);
+		if(count==3)
+		{
+			v1[a]=1;
+			v1[b]=2;
+			v1[c]=3;
+		}
+		else if(count==2)
+		{   
+			int aa,bb;
+			if(v1[a])
+			{ 
+
+				if(v1[a]==1)
+				{
+                  aa=2;
+                  bb=3;
+				}
+				else if(v1[a]==2){
+					aa=1;
+					bb=3;
+				}
+				else{
+					aa=1;
+					bb=2;
+				}
+               v1[b]=aa;
+               v1[c]=bb;
+			}
+			else if(v1[b])
+			{   
+				if(v1[b]==1)
+				{
+                  aa=2;
+                  bb=3;
+				}
+				else if(v1[b]==2){
+					aa=1;
+					bb=3;
+				}
+				else{
+					aa=1;
+					bb=2;
+				}
+                 v1[a]=aa;
+               v1[c]=bb;
+			}
+			else{
+				if(v1[c]==1)
+				{
+                  aa=2;
+                  bb=3;
+				}
+				else if(v1[c]==2){
+					aa=1;
+					bb=3;
+				}
+				else{
+					aa=1;
+					bb=2;
+				}
+				 v1[a]=aa;
+               v1[b]=bb;
+
+			}
+		}
+
+
+	}
+	for(int i=1;i<=n;i++)
+	{
+		cout<<v1[i]<<" ";
+	}
+	cout<<"\n";
+}
+int main() {
+	  
+	solve();
+	return 0;
+}
