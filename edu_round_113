@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+int balString(string str)
+{
+	int counta=0,countb=0,flag=0,temp,temp1;
+	for(int i=0;i<str.size();i++)
+	{
+		counta=0;
+		countb=0;
+		for(int j=i;j<str.size();j++)
+		{
+			if(str[j]=='a')
+			{
+				counta++;
+			}
+			else
+			if(str[j]=='b')
+			{
+				countb++;
+			}
+			if(counta==countb)
+			{
+				temp=i;
+				temp1=j;
+				flag=1;
+				break;
+			}
+		}
+		if(flag==1)
+		break;
+	}
+	if(flag==0)
+	{
+		cout<<"-1"<<" "<<"-1"<<endl;
+	}
+	else
+	{
+		cout<<temp+1<<" "<<temp1+1<<endl;
+	}
+	return 0;
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int n;
+		cin>>n;
+		string s;
+		cin>>s;
+		balString(s);
+	}
+	return 0;
+}
