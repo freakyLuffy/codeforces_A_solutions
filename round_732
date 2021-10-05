@@ -1,0 +1,94 @@
+#include<bits/stdc++.h>
+using namespace std;
+int aquaMoon(int arr[],int size,int ar[],int si)
+{
+	int countd=0,countu=0,count=0;
+	for(int i=0;i<size;i++)
+	{
+		if(arr[i]==ar[i])
+		{
+			count++;
+		}
+	}
+	if(count==size)
+	{
+		cout<<"0"<<endl;
+	}
+	else
+	{
+		for(int i=0;i<size;i++)
+		{
+			if(arr[i]<ar[i])
+			{
+				countu=countu+(ar[i]-arr[i]);
+			}
+			else
+			if(arr[i]>ar[i])
+			{
+				countd=countd+(arr[i]-ar[i]);
+			}
+		}
+		if(countu!=countd)
+		{
+			cout<<"-1"<<endl;
+		}
+		else
+		{
+			int up[countu],down[countu],j=0,k=0;
+			for(int i=0;i<size;i++)
+			{
+				if(arr[i]<ar[i])
+				{
+					int temp;
+					temp=ar[i]-arr[i];
+					while(temp!=0)
+					{
+						up[j]=i+1;
+						j++;
+					temp--;
+					}
+				}
+			if(arr[i]>ar[i])
+					{
+					int temp;
+					temp=arr[i]-ar[i];
+					while(temp!=0)
+					{
+						down[k]=i+1;
+						k++;
+						temp--;
+					}
+				}
+			}
+			cout<<countu<<endl;
+			for(int i=0;i<countu;i++)
+			{
+				cout<<down[i]<<" "<<up[i];
+				cout<<endl;
+			}
+			//cout<<endl;
+		}
+	}
+	return 0;
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int n,m;
+		cin>>n;
+		m=n;
+		int a[n],b[m];
+		for(int i=0;i<n;i++)
+		{
+			cin>>a[i];
+		}
+		for(int i=0;i<n;i++)
+		{
+			cin>>b[i];
+		}
+		aquaMoon(a,n,b,m);
+	}
+	return 0;
+}

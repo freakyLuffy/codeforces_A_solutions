@@ -1,0 +1,137 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+#include <queue>
+#include <deque>
+#include <bitset>
+#include <iterator>
+#include <list>
+#include <stack>
+#include <map>
+#include <set>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <limits>
+#include <time.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+using namespace std;
+#define ll long long
+#define mod 1000000007LL
+#define pb push_back
+#pragma GCC target ("avx2")
+#pragma GCC optimization ("O3")
+#pragma GCC optimization ("unroll-loops")
+#define v(x,a,n) vector<x>a(n)
+#define all(v) v.begin(),v.end()
+#define dbg(x) cout<<#x<<"=="<<x<<"\n"
+#define inf 1LL<<60
+void solve(){
+	string str;
+	cin>>str;
+	int len=str.length();
+    int f1=0;
+    int f2=0;
+   int count=0;
+     vector<pair<char,int>>v;
+    for(int i=0;i<len;i++)
+    {
+      
+         if(i+1<len && str[i]==str[i+1])
+         {   
+         	count=1;
+         	while(str[i]==str[i+1] && i+1<len)
+              {
+              	i++;
+              	count++;
+
+              }
+              v.pb({str[i],count});
+         }
+         else{
+         	v.pb({str[i],1});
+         }
+
+    }
+    int print=2;
+    for(int i=0;i<v.size();i++)
+    {
+    	if( i+1<v.size() && v[i].second>=2 && v[i+1].second>=2 )
+    	{     
+    		for(int j=0;j<min(v[i].second,print);j++)
+    		{
+    			cout<<v[i].first;
+    		}
+    		if(min(v[i].second,print)==2)
+    		{
+               print=1;
+    		}
+    		else{
+    			print=2;
+    		}
+    		//print=min(min(v[i].second,print),2)-1;
+
+    		//cout<<v[i+1].first;
+    	}
+        else if( i+1<v.size() && v[i].second==1 && v[i+1].second>=2 ){
+        	cout<<v[i].first;
+        	// for(int j=0;j<min(v[i+1].second,2);j++)
+        	// {
+        	// 	cout<<v[i+1].first;
+        	// }
+        	print=2;
+        }
+        else if(i+1<v.size() && v[i].second>=2 && v[i+1].second==1){
+        	
+        	for(int j=0;j<min(v[i].second,print);j++)
+        	{
+        		cout<<v[i].first;
+        	}
+        	// for(int j=0;j<min(v[i+1].second,2);j++)
+        	// {
+        	// 	cout<<v[i+1].first;
+        	// }
+        	if(min(v[i].second,print)==2)
+    		{
+               print=1;
+    		}
+    		else{
+    			print=2;
+    		}
+
+        }
+        else if( i+1<v.size() && v[i].second==1 && v[i+1].second==1 )
+        {
+        	cout<<v[i].first;
+        	print=2;
+        	//v[i+1].first;
+        }
+        else{
+        	for(int j=0;j<min(print,v[i].second);j++)
+        	cout<<v[i].first;
+        	print=2;
+        }
+       // cout<<"\n";
+       // dbg(print);
+
+   }
+}
+int main() {
+	  
+	solve();
+	return 0;
+}
+
+//helloo
+//helloolloolloo
+//hellololololo
+//helooloolooloo
+//hellolloll
+//heloolooloo
+

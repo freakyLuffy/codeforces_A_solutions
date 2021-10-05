@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+int findArray(int a)
+{
+	int count=0;
+	vector<int> v;
+	for(int i=1;i<5001;i=i+2)
+	{
+		if(i<a)
+		{
+			a=a-i;
+			v.push_back(i);
+		}
+		else
+		if(i>=a)
+		{
+			v.push_back(i);
+			break;
+		}
+	}
+	sort(v.begin(),v.end());
+	cout<<v.size()<<endl;
+	return 0;
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int s;
+		cin>>s;
+		findArray(s);
+	}
+	return 0;
+}
