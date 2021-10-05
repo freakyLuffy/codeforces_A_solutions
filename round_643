@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll unsigned long long
+int sequenceDigits(ll int p,ll int q)
+{
+	q--;
+	vector<ll int> v;
+	ll int r,re,i=0;
+	while(q--)
+	{
+		v.clear();
+		r=p;
+		while(r!=0)
+		{
+			re=r%10;
+			v.push_back(re);
+			r=r/10;
+		}
+		sort(v.begin(),v.end());
+		if(v[0]==0)
+		{
+			i++;
+			break;
+		}
+		else
+		{
+			p=p+(v[0]*v[v.size()-1]);
+			i++;
+		}
+	}
+	cout<<p<<endl;
+	return 0;
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		ll int n,k;
+		cin>>n>>k;
+		sequenceDigits(n,k);
+	}
+	return 0;
+}
