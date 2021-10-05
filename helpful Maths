@@ -1,0 +1,33 @@
+    #include<stdio.h>
+    #include<string.h>
+    int main(){
+        char st[100];
+        scanf("%s", st);
+        int l = strlen(st);
+        int ar[100],j=0;
+        for(int i=0; i<l; i++){
+            if((i%2) == 0){
+                ar[j] = (int)st[i];
+                j++;
+            }
+        }
+        int temp;
+        for(int i=1; i<j; i++){
+            for(int k=0; k<j-i; k++){
+                if(ar[k] > ar[k+1]){
+                    temp = ar[k];
+                    ar[k] =ar[k+1];
+                    ar[k+1] = temp;
+                }
+            }
+        }
+        for(int i=0; i<j; i++){
+            if(i == j-1){
+                printf("%c", (char)ar[i]);
+            }
+            else{
+                printf("%c%c", (char)ar[i], '+');
+            }
+        }
+        return 0;
+    }
