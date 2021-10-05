@@ -1,0 +1,20 @@
+    #include<bits/stdc++.h>
+     
+    using namespace std;
+     
+    int main()
+    {
+        int t;
+        cin>>t;
+        for(int i=0;i<t;i++)
+        {
+            int a,b;
+            cin>>a>>b;
+            long long int ans=0;
+            ans=ans+(2*min(a,b));
+            int e=max(a,b)-min(a,b);
+            if(e!=0) ans=ans+((2*e)-1);
+            cout<<ans<<endl;
+        }
+        return 0;
+    }
