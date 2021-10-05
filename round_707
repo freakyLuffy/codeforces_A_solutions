@@ -1,0 +1,70 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+#include <queue>
+#include <deque>
+#include <bitset>
+#include <iterator>
+#include <list>
+#include <stack>
+#include <map>
+#include <set>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <limits>
+#include <time.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+using namespace std;
+#define ll long long
+#define mod 1000000007LL
+#define pb push_back
+#pragma GCC target ("avx2")
+#pragma GCC optimization ("O3")
+#pragma GCC optimization ("unroll-loops")
+#define v(x,a,n) vector<x>a(n)
+#define all(v) v.begin(),v.end()
+#define dbg(x) cout<<#x<<"=="<<x<<"\n"
+#define inf 1LL<<60
+void solve(){
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		ll n;
+		cin>>n;
+		v(ll,v,n+1);
+		v(ll,v1,n+1);
+		v1[0]=0;
+		v(ll,v2,n+1);
+		for(int i=1;i<=n;i++)
+		{
+            cin>>v[i];
+            cin>>v1[i];
+		}
+		vector<ll>v3(n+1,0);
+			v(ll,ans,n+1);
+		for(int i=1;i<=n;i++)
+		{
+			cin>>v2[i];
+			
+			ans[i]=v3[i-1]+(v[i]-v1[i-1]+v2[i]);
+			v3[i]=max(v1[i],(ans[i])+(v1[i]-v[i]+1)/2);
+
+		}
+	
+	
+		cout<<ans[n]<<"\n";
+	}
+}
+int main() {
+	  
+	solve();
+	return 0;
+}
