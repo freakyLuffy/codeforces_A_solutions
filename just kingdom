@@ -1,0 +1,18 @@
+for _ in range(t):
+    s=input()
+    ca=cb=cc=0
+    for i in s:
+        if i=='A':
+            ca+=1
+        elif i=='B':
+            cb+=1
+        else:
+            cc+=1
+ 
+    if ca+cc==cb:
+        print("YES")
+ 
+    else:
+        print("NO")
+ 
+        
