@@ -1,0 +1,30 @@
+#include <stdio.h>
+ 
+int main() {
+    int t;
+    scanf("%d", &t);
+ 
+    for (int i = 0; i < t; ++i) {
+        int w, h, m;
+        scanf("%d %d %d", &w, &h, &m);
+ 
+        int PapersK = 1;
+ 
+        while (w % 2 == 0) {
+            PapersK *= 2;
+            w /= 2;
+        }
+ 
+        while (h % 2 == 0) {
+            PapersK *= 2;
+            h /= 2;
+        }
+ 
+        if (PapersK >= m)
+            printf("YES\n");
+        else
+            printf("NO\n");
+    }
+ 
+    return 0;
+}
