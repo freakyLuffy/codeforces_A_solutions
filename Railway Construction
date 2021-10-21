@@ -1,0 +1,225 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define N	200000
+#define N_	(1 << 18)	/* N_ = pow2(ceil(log2(N))) */
+#define M	300000
+#define Q	200000
+#define INF	0x3f3f3f3f3f3f3f3fLL
+
+typedef unsigned long long ull;
+
+int ij[M], ww[M], m;
+int *eh[N], eo[N], *ei[N], eo_[N], n;
+
+void append(int **eh, int *eo, int i, int h) {
+	int o = eo[i]++;
+
+	if (o >= 2 && (o & o - 1) == 0)
+		eh[i] = (int *) realloc(eh[i], o * 2 * sizeof *eh[i]);
+	eh[i][o] = h;
+}
+
+long long dd[N]; int pq[N], iq[1 + N], cnt;
+
+int lt(int i, int j) { return dd[i] < dd[j]; }
+
+int p2(int p) {
+	return (p *= 2) > cnt ? 0 : (p < cnt && lt(iq[p + 1], iq[p]) ? p + 1 : p);
+}
+
+void pq_up(int i) {
+	int p, q, j;
+
+	for (p = pq[i]; (q = p / 2) && lt(i, j = iq[q]); p = q)
+		iq[pq[j] = p] = j;
+	iq[pq[i] = p] = i;
+}
+
+void pq_dn(int i) {
+	int p, q, j;
+
+	for (p = pq[i]; (q = p2(p)) && lt(j = iq[q], i); p = q)
+		iq[pq[j] = p] = j;
+	iq[pq[i] = p] = i;
+}
+
+void pq_add_last(int i) {
+	iq[pq[i] = ++cnt] = i;
+}
+
+int pq_remove_first() {
+	int i = iq[1], j = iq[cnt--];
+
+	if (j != i)
+		pq[j] = 1, pq_dn(j);
+	pq[i] = 0;
+	return i;
+}
+
+int qu[N];
+
+void dijkstra() {
+	int cnt_;
+
+	memset(dd, 0x3f, n * sizeof *dd);
+	dd[0] = 0, pq_add_last(0);
+	cnt_ = 0;
+	while (cnt) {
+		int i = pq_remove_first(), o;
+
+		qu[cnt_++] = i;
+		for (o = eo[i]; o--; ) {
+			int h = eh[i][o], j = i ^ ij[h];
+			long long d = dd[i] + ww[h];
+
+			if (dd[j] > d) {
+				if (dd[j] == INF)
+					pq_add_last(j);
+				dd[j] = d, pq_up(j);
+			}
+		}
+	}
+}
+
+int query(int p, int r) {
+	int lower = -1, upper = eo_[p];
+
+	while (upper - lower > 1) {
+		int o = (lower + upper) / 2;
+
+		if (ei[p][o] < r)
+			lower = o;
+		else
+			upper = o;
+	}
+	return lower + 1;
+}
+
+int pp[N], ll[N], cc[N + 1], ii1[N], ii2[N]; ull vv[N], ans_;
+int i1_, i2_, l_, r_, i_; ull x_;
+
+void add(int l, int r) {
+	int i1, i2;
+
+	if (l != -1) {
+		i1 = ii1[l], i2 = ii2[l];
+		if (ii1[l] != i_) {
+			if (ii1[l] == -1 || vv[ii1[l]] > vv[i_])
+				ii2[l] = ii1[l], ii1[l] = i_;
+			else if (ii2[l] == -1 || vv[ii2[l]] > vv[i_])
+				ii2[l] = i_;
+			ii1[r - 1] = ii1[l], ii2[r - 1] = ii2[l];
+		}
+	} else
+		i1 = -1, i2 = -1;
+	if (i1_ == -2)
+		i1_ = i1, i2_ = i2, l_ = l;
+	else if ((l == -1 || i1_ != i1 || i2_ != i2) && (i1_ != i_ || i1 != i_)) {
+		int r1 = l == -1 ? r_ : l;
+
+		if (i1_ == i_)
+			ans_ -= x_ * (cc[r1] - cc[l_] - (query(i_, r1) - query(i_, l_)));
+		else {
+			int c;
+
+			if (i1_ != -1) {
+				c = query(i1_, r1) - query(i1_, l_);
+				ans_ -= vv[i1_] * (cc[r1] - cc[l_] - c) + (i2_ == -1 ? 0 : (i2_ == i_ ? vv[i2_] + x_ : vv[i2_]) * c);
+			}
+			if (i1_ == -1 || vv[i1_] > vv[i_])
+				i2_ = i1_, i1_ = i_;
+			else if (i2_ == -1 || vv[i2_] > vv[i_])
+				i2_ = i_;
+			c = query(i1_, r1) - query(i1_, l_);
+			ans_ += vv[i1_] * (cc[r1] - cc[l_] - c) + (i2_ == -1 ? 0 : vv[i2_] * c);
+		}
+		i1_ = i1, i2_ = i2, l_ = l;
+	}
+	r_ = r;
+}
+
+void pus(int l, int r) {
+	if (ii1[l] == ii1[r - 1] && ii2[l] == ii2[r - 1]) {
+		int m = (l + r) / 2;
+
+		ii1[m - 1] = ii1[m] = ii1[l], ii2[m - 1] = ii2[m] = ii2[l];
+	}
+}
+
+void update(int l, int r) {
+	int m;
+
+	if (r <= ll[i_] || ii2[l] != -1 && ii2[l] != i_ && vv[ii2[l]] <= vv[i_])
+		return;
+	if (ll[i_] <= l && ii1[l] == ii1[r - 1] && (ii1[l] == i_ || ii2[l] == ii2[r - 1])) {
+		add(l, r);
+		return;
+	}
+	m = (l + r) / 2;
+	pus(l, r), update(l, m), update(m, r);
+}
+
+int main() {
+	static int ii[Q], xx[Q];
+	static ull ans[Q + 1];
+	int q, h, i, j, p, o;
+
+	scanf("%d%d%d", &n, &m, &q);
+	for (i = 0; i < n; i++) {
+		scanf("%llu", &vv[i]);
+		eh[i] = (int *) malloc(2 * sizeof *eh[i]);
+	}
+	for (h = 0; h < m; h++) {
+		int w;
+
+		scanf("%d%d%d", &i, &j, &w), i--, j--;
+		ij[h] = i ^ j, ww[h] = w;
+		append(eh, eo, i, h), append(eh, eo, j, h);
+	}
+	dijkstra();
+	memset(pp, -1, n * sizeof *pp);
+	for (j = 0; j < n; j++)
+		for (o = eo[j]; o--; ) {
+			h = eh[j][o], i = j ^ ij[h];
+			if (dd[i] + ww[h] == dd[j])
+				pp[j] = pp[j] == -1 ? i : -2;
+		}
+	pp[0] = -2;
+	for (i = 1; i < n; i++)
+		if (pp[i] == 0)
+			pp[i] = -1;
+	for (p = 0; p < n; p++)
+		ei[p] = (int *) malloc(2 * sizeof *ei[p]);
+	for (i = 0; i < n; i++) {
+		p = pp[qu[i]];
+		if (p == -2)
+			continue;
+		cc[i + 1] = 1;
+		if (p >= 0)
+			append(ei, eo_, p, i);
+	}
+	for (i = 1; i <= n; i++)
+		cc[i] += cc[i - 1];
+	for (i = n - 1; i >= 0; i--)
+		ll[qu[i]] = i + 1 == n || dd[qu[i]] != dd[qu[i + 1]] ? i + 1 : ll[qu[i + 1]];
+	for (h = 0; h < q; h++) {
+		scanf("%d%d", &ii[h], &xx[h]), ii[h]--;
+		vv[ii[h]] += xx[h];
+	}
+	ii1[0] = ii2[0] = -1, ii1[n - 1] = ii2[n - 1] = -1;
+	for (i = 0; i < n; i++) {
+		i_ = i, i1_ = i2_ = -2, l_ = -1, x_ = 0;
+		update(0, n), add(-1, -1);
+	}
+	ans[q] = ans_;
+	for (h = q - 1; h >= 0; h--) {
+		i_ = ii[h], i1_ = i2_ = -2, l_ = -1, x_ = xx[h], vv[i_] -= x_;
+		update(0, n), add(-1, -1);
+		ans[h] = ans_;
+	}
+	for (h = 0; h <= q; h++)
+		printf("%llu\n", ans[h]);
+	return 0;
+}
