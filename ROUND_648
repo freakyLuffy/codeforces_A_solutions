@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int n,m;
+		cin>>n>>m;
+		int a[n][m];
+		for(int i=0;i<n;i++)
+		{
+			for(int j=0;j<m;j++)
+			{
+				cin>>a[i][j];
+			}
+		}
+		int sum=0,count1=0,sum1=0,count2=0,temp;
+		for(int i=0;i<n;i++)
+		{
+			sum=0;
+			for(int j=0;j<m;j++)
+			{
+				sum=sum+a[i][j];
+			}
+			if(sum==0)
+			{
+				count1++;
+			}
+		}
+		for(int j=0;j<m;j++)
+		{
+			sum1=0;
+			for(int i=0;i<n;i++)
+			{
+				sum1=sum1+a[i][j];
+			}
+			if(sum1==0)
+			{
+				count2++;
+			}
+		}
+		temp=min(count1,count2);
+		if(temp%2==0)
+		{
+			cout<<"Vivek"<<endl;
+		}
+		else
+		{
+			cout<<"Ashish"<<endl;
+		}
+		//cout<<count1<<" "<<count2<<endl;
+	}
+	return 0;
+}
