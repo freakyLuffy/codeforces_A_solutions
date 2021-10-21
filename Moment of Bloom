@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+int fa[300005],n,m,u,v,tot=0,ans[300005],q,qu[300005],qv[300005];
+bool cnt[300005];
+vector<int> son[300005];
+int gf(int x){
+	return fa[x]==x?x:fa[x]=gf(fa[x]);
+}
+void dfs(int s,int ss,int t){
+	ans[++tot]=s;
+	if(s==t){
+		cout<<tot<<endl;
+		for(int i=1;i<=tot;i++){
+			cout<<ans[i]<<' ';
+		}
+		cout<<endl;
+	} 
+	for(auto it:son[s])if(it!=ss)dfs(it,s,t);
+	tot--;
+}
+int main(){
+	cin>>n>>m;
+	memset(cnt,0,sizeof(cnt));
+	for(int i=1;i<=n;i++)fa[i]=i;
+	for(int i=1;i<=m;i++){
+		cin>>u>>v;
+		if(gf(u)!=gf(v)){
+			son[u].push_back(v),
+			son[v].push_back(u);
+			fa[gf(u)]=gf(v);
+		}
+	}
+	cin>>q;
+	for(int i=1;i<=q;i++){
+		cin>>qu[i]>>qv[i];
+		cnt[qu[i]]^=1;
+		cnt[qv[i]]^=1;
+	}
+	int now=0;
+	for(int i=1;i<=n;i++){
+		if(cnt[i])now++;
+	}
+	if(now){
+		cout<<"NO"<<endl;
+		cout<<now/2<<endl;
+		return 0;
+	}
+	cout<<"YES"<<endl;
+	for(int i=1;i<=q;i++){
+		dfs(qu[i],-1,qv[i]);
+	}
+} 
